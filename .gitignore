@@ -1,0 +1,4 @@
+/contentImages/*
+/media/uploads/*
+
+db.sqlite3

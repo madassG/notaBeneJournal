@@ -60,7 +60,7 @@ def category_view(request, type, category):
 
     posts = Post.objects.filter(category=cat[0]).order_by('-published_at')
     items = Paginator(posts, 6)
-    return render(request, 'content/tiles.html', {
+    return render(request, 'content/category.html', {
         'nav': nav,
         'items': items,
         'cat': cat[0],
@@ -187,13 +187,21 @@ def serie_post(request, serie, post):
     if len(similar) < 3:
         similar += Post.objects.exclude(id=postt.pk).exclude(category=postt.category)
     similar = similar[:3]
+    emailForm = MailingForm()
+    success = False
+
+    if request.method == 'POST' and 'emailForm' in request.POST:
+        emailForm = MailingForm(request.POST)
+        if emailForm.is_valid():
+            emailForm.save()
+            success = True
     form = RateForm()
     if request.method == 'POST' and 'rateForm':
         rated = request.POST.get('rate', None)
         if rated:
             rates = rate_post.objects.filter(post=postt).filter(ip=request.META.get('REMOTE_ADDR'))
             if rates:
-                raise forms.ValidationError('Вы уже голосовали')
+                form.errors['rate'] = {'message': 'Вы уже проголосовали', 'code': 'not_allowed'}
             rate = rate_post()
             rate.post = postt
             rate.rate = rated
@@ -210,6 +218,8 @@ def serie_post(request, serie, post):
         'serie': serie,
         'post': postt,
         'rateForm': form,
+        'emailForm': emailForm,
+        'success': success,
         'rated': rated,
         'similar': similar,
     })

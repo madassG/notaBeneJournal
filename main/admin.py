@@ -10,3 +10,8 @@ class SubscribePageAdmin(admin.ModelAdmin):
 @admin.register(models.Member)
 class SubscribePageAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'phone', 'message']
+
+
+@admin.register(models.Mailing)
+class SubscribePageAdmin(admin.ModelAdmin):
+    list_display = ['email', 'created_at']

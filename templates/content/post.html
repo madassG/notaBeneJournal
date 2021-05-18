@@ -1,7 +1,14 @@
-<!--<form method="post" novalidate>-->
+<!--<form method="post" >-->
 <!--  {% csrf_token %}-->
-<!--  {{ form }}-->
-<!--    {{form.errors.rate.message}}-->
-<!--  <button type="submit">Submit</button>-->
+<!--  {{ rateForm }}-->
+<!--    {{rateForm.errors.rate.message}}-->
+<!--  <button type="submit" name="rateForm">Submit</button>-->
+<!--</form>-->
+
+<!--<form method="post" >-->
+<!--  {% csrf_token %}-->
+<!--  {{ emailForm }}-->
+<!--    {{emailForm.errors.rate.message}}-->
+<!--  <button type="submit" name="emailForm">Submit</button>-->
 <!--</form>-->
  {{ post.content|safe}}

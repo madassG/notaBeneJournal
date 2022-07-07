@@ -1,4 +1,7 @@
 /contentImages/*
 /media/uploads/*
+env
+venv
+.idea
 
 db.sqlite3
